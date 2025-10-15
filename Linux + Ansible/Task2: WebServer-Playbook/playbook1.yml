@@ -1,0 +1,39 @@
+---
+- name: Configure Nginx
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Install Nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Deploy custom index.html
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head>
+            <title>Welcome</title>
+          </head>
+          <body>
+            <h1>Configured by Ansible 🚀</h1>
+            <p>This web page was deployed using an Ansible Playbook.</p>
+          </body>
+          </html>
+
+    - name: Verify Nginx is running
+      ansible.builtin.shell: systemctl is-active nginx
+      register: nginx_status
+
+    - name: Display status
+      ansible.builtin.debug:
+        msg: "Nginx service status: {{ nginx_status.stdout }}"
+

@@ -1,0 +1,55 @@
+---
+# tasks file for kubectl installation and verification
+
+# Step 0: Ensure curl is installed
+- name: Ensure curl is installed
+  ansible.builtin.apt:
+    name: curl
+    state: present
+    update_cache: yes
+  become: yes
+
+# Step 1: Check if kubectl already exists
+- name: Check if kubectl binary exists
+  ansible.builtin.stat:
+    path: /usr/local/bin/kubectl
+  register: kubectl_check
+
+# Step 2: Verify if kubectl works
+- name: Check if kubectl is working
+  ansible.builtin.command: kubectl version --client=true
+  register: kubectl_existing
+  changed_when: false
+  failed_when: false
+  when: kubectl_check.stat.exists
+
+# Step 3: Download latest stable kubectl (only if missing or broken)
+- name: Download latest stable kubectl
+  ansible.builtin.shell: |
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  args:
+    chdir: /tmp
+  register: kubectl_download
+  changed_when: "'saved' in kubectl_download.stdout or '100%' in kubectl_download.stdout"
+  retries: 3
+  delay: 10
+  when: not kubectl_check.stat.exists or kubectl_existing.rc != 0
+
+# Step 4: Install kubectl binary
+- name: Install kubectl binary
+  ansible.builtin.command:
+    cmd: install -o root -g root -m 0755 /tmp/kubectl /usr/local/bin/kubectl
+  become: yes
+  when: not kubectl_check.stat.exists or kubectl_existing.rc != 0
+
+# Step 5: Verify kubectl installation
+- name: Verify kubectl installation
+  ansible.builtin.command: kubectl version --client=true
+  register: kubectl_version
+  changed_when: false
+
+# Step 6: Display kubectl version
+- name: Show kubectl version
+  ansible.builtin.debug:
+    msg: "{{ kubectl_version.stdout | default('kubectl verification failed, please check manually') }}"
+

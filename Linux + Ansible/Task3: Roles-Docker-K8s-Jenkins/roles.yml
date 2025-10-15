@@ -1,0 +1,9 @@
+---
+- name: Configure Tools
+  hosts: web
+  become: true
+  roles:
+    - docker
+    - kubectl
+    - jenkins
+

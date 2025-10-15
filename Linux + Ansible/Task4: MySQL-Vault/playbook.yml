@@ -1,0 +1,51 @@
+---
+- name: Secure MySQL Setup with Ansible Vault
+  hosts: all
+  become: yes
+  vars_files:
+    - group_vars/all/vault.yml
+
+  tasks:
+
+    - name: Install MySQL server
+      apt:
+        name: mysql-server
+        state: present
+        update_cache: yes
+
+    - name: Install Python MySQL dependencies
+      apt:
+        name: python3-pymysql
+        state: present
+
+    - name: Ensure MySQL service is running
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Create iVolve database
+      community.mysql.mysql_db:
+        name: "{{ db_name }}"
+        state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+
+    - name: Create user with privileges
+      community.mysql.mysql_user:
+        name: "{{ db_user }}"
+        password: "{{ db_password }}"
+        priv: "{{ db_name }}.*:ALL"
+        state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+
+    - name: Validate DB connection and list databases
+      community.mysql.mysql_query:
+        login_user: "{{ db_user }}"
+        login_password: "{{ db_password }}"
+        query: "SHOW DATABASES;"
+      register: db_list
+
+    - name: Display databases
+      debug:
+        var: db_list.query_result
+

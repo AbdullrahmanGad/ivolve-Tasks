@@ -1,0 +1,84 @@
+---
+# tasks file for roles/jenkins
+
+- name: Check if Jenkins is already installed
+  ansible.builtin.shell: dpkg -l | grep -w jenkins
+  register: jenkins_check
+  ignore_errors: yes
+  changed_when: false
+  become: yes
+
+- name: Skip Jenkins installation if already installed
+  ansible.builtin.debug:
+    msg: "Jenkins is already installed — skipping installation."
+  when: jenkins_check.rc == 0
+
+- name: Clean up any old Jenkins repo or keys
+  ansible.builtin.shell: |
+    rm -f /etc/apt/sources.list.d/jenkins.list
+    rm -f /usr/share/keyrings/jenkins-keyring.gpg
+  args:
+    executable: /bin/bash
+  become: yes
+  ignore_errors: yes
+  when: jenkins_check.rc != 0
+
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - curl
+      - gnupg
+      - openjdk-17-jdk
+    state: present
+    update_cache: yes
+  become: yes
+  when: jenkins_check.rc != 0
+
+- name: Add Jenkins GPG key securely
+  ansible.builtin.shell: |
+    curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | gpg --dearmor -o /usr/share/keyrings/jenkins-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/jenkins-keyring.gpg
+  become: yes
+  when: jenkins_check.rc != 0
+
+- name: Add Jenkins repository (modern way)
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/jenkins.list
+    content: |
+      deb [signed-by=/usr/share/keyrings/jenkins-keyring.gpg] https://pkg.jenkins.io/debian-stable binary/
+  become: yes
+  when: jenkins_check.rc != 0
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+  become: yes
+  when: jenkins_check.rc != 0
+
+- name: Install Jenkins
+  ansible.builtin.apt:
+    name: jenkins
+    state: present
+  become: yes
+  when: jenkins_check.rc != 0
+
+- name: Ensure Jenkins service is started and enabled
+  ansible.builtin.service:
+    name: jenkins
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Verify Jenkins service status
+  ansible.builtin.shell: systemctl is-active jenkins
+  register: jenkins_status
+  ignore_errors: yes
+  changed_when: false
+  become: yes
+
+- name: Display Jenkins installation status
+  ansible.builtin.debug:
+    msg: |
+      Jenkins is installed and service status: {{ jenkins_status.stdout | default('unknown') }}
+
