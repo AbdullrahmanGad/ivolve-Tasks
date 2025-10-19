@@ -7,7 +7,7 @@
 - [5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)](#5--automated-host-discovery-with-ansible-dynamic-inventory-aws-ec2)
 
 # 1- Initial Ansible Configuration
-
+<details> <summary>Click to expand</summary>
 ## Objectives
 
 - Install and configure Ansible on the control node
@@ -57,6 +57,8 @@ ansible managed -i inventory.ini -m command -a "df -h"
 - Use sudo if needed.
 
 - Firewall should allow SSH.
+
+</details>
 
 # 2- Automated Web Server Configuration Using Ansible Playbooks
 
