@@ -7,7 +7,8 @@
 - [5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)](#5--automated-host-discovery-with-ansible-dynamic-inventory-aws-ec2)
 
 # 1- Initial Ansible Configuration
-## <details> <summary>Click to expand</summary>
+<details>
+  <summary><strong>Click to expand</strong></summary>
 ## Objectives
 
 - Install and configure Ansible on the control node
@@ -58,10 +59,11 @@ ansible managed -i inventory.ini -m command -a "df -h"
 
 - Firewall should allow SSH.
 
-## </details>
+</details>
 
 # 2- Automated Web Server Configuration Using Ansible Playbooks
-## <details> <summary>Click to expand</summary>
+<details>
+  <summary><strong>Click to expand</strong></summary>
 
 ## Objectives
 
@@ -150,11 +152,11 @@ curl http://managed_node_ip
            src: index.html
            dest: /var/www/html/index.html
        ```
-## </details>
+</details>
 
 # 3- Structured Configuration Management with Ansible Roles
-## <details> <summary>Click to expand</summary>
-
+<details>
+  <summary><strong>Click to expand</strong></summary>
 ## Objectives
 
 - Use Ansible roles for structured configuration
@@ -234,11 +236,11 @@ curl http://managed_node_ip
 
 `systemctl status jenkins`
 
-## </details>
+</details>
                    
 # 4- Securing Sensitive Data with Ansible Vault
-## <details> <summary>Click to expand</summary>
-
+<details>
+  <summary><strong>Click to expand</strong></summary>
 ## Objectives
 
 - Install and configure MySQL server using Ansible
@@ -355,11 +357,11 @@ mysql -u ivolve_user -p -e "SHOW DATABASES;"
 - Ensure MySQL service is running and accessible on the managed node.
 
 - Use `login_unix_socket: /var/run/mysqld/mysqld.sock` to let Ansible connect as MySQL root via socket (no password needed)
-## </details>
+</details>
 
 # 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
-## <details> <summary>Click to expand</summary>
-
+<details>
+  <summary><strong>Click to expand</strong></summary>
 ### Objective
 
 Use **Ansible Dynamic Inventory** to automatically discover and manage running EC2 instances on AWS using the `amazon.aws.aws_ec2` plugin, instead of manually defining hosts.
@@ -461,6 +463,6 @@ Use **Ansible Dynamic Inventory** to automatically discover and manage running E
 - You can filter by region, VPC, or tags.
 
 - Ad-hoc and playbook executions both confirm connectivity.
-## </details>
+</details>
 
 
