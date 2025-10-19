@@ -1,10 +1,10 @@
 ## 📚 Table of Contents
 
-- [Task 1: Initial Ansible Configuration](#task-1-initial-ansible-configuration)
-- [Task 2: Automated Web Server Configuration Using Ansible Playbooks](#task-2-automated-web-server-configuration-using-ansible-playbooks)
-- [Task 3: Structured Configuration Management with Ansible Roles](#task-3-structured-configuration-management-with-ansible-roles)
-- [Task 4: Securing Sensitive Data with Ansible Vault](#task-4-securing-sensitive-data-with-ansible-vault)
-- [Task 5: Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)](#task-5-automated-host-discovery-with-ansible-dynamic-inventory-aws-ec2)
+- [1- Initial Ansible Configuration](#1--initial-ansible-configuration)
+- [2- Automated Web Server Configuration Using Ansible Playbooks](#2--automated-web-server-configuration-using-ansible-playbooks)
+- [3- Structured Configuration Management with Ansible Roles](#3--structured-configuration-management-with-ansible-roles)
+- [4- Securing Sensitive Data with Ansible Vault](#4--securing-sensitive-data-with-ansible-vault)
+- [5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)](#5--automated-host-discovery-with-ansible-dynamic-inventory-aws-ec2)
 
 # 1- Initial Ansible Configuration
 
