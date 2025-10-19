@@ -9,6 +9,7 @@
 # 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
+  
 ## Objectives
 
 - Install and configure Ansible on the control node
@@ -64,6 +65,7 @@ ansible managed -i inventory.ini -m command -a "df -h"
 # 2- Automated Web Server Configuration Using Ansible Playbooks
 <details>
   <summary><strong>Click to expand</strong></summary>
+  
 ## Objectives
 
 - Automate web server setup using Ansible
@@ -156,6 +158,7 @@ curl http://managed_node_ip
 # 3- Structured Configuration Management with Ansible Roles
 <details>
   <summary><strong>Click to expand</strong></summary> 
+  
 ## Objectives
 
 - Use Ansible roles for structured configuration
@@ -362,6 +365,7 @@ mysql -u ivolve_user -p -e "SHOW DATABASES;"
 # 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
 <details>
   <summary><strong>Click to expand</strong></summary>
+  
 ## Objective
 
 Use **Ansible Dynamic Inventory** to automatically discover and manage running EC2 instances on AWS using the `amazon.aws.aws_ec2` plugin, instead of manually defining hosts.
