@@ -444,7 +444,7 @@ mysql -u ivolve_user -p -e "SHOW DATABASES;"
 
 - Use `login_unix_socket: /var/run/mysqld/mysqld.sock` to let Ansible connect as MySQL root via socket (no password needed)
 
-#5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
+# 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
 
 ### Objective
 
