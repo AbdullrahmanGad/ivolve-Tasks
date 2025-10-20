@@ -654,10 +654,10 @@ docker build -t app1 .
 
 - The First build:-
   
-  ![d2.jpg](C:\Users\bodey\Desktop\d2.jpg)
+  ![d2.jpg](/home/gad/pics/docker/d2.jpg)
 - Note the **image size** (usually larger because Maven and build tools are included)
   
-  <img src="file:///C:/Users/bodey/Desktop/d3.jpg" title="" alt="d3.jpg" width="681">
+  <img src="/home/gad/pics/docker/d3.jpg" title="" alt="d3.jpg" width="681">
 5. **Run Container**
 
 ```bash
@@ -724,12 +724,12 @@ docker build -t app2 .
 
 - The First build:- a lot Faster than before.
   
-  ![E1.jpg](C:\Users\bodey\Desktop\E1.jpg)
+  ![E1.jpg](/home/gad/pics/docker/E1.jpg)
 - Note the **image size** (much smaller, ~400 MB)
   
   
   
-  ![e11.jpg](C:\Users\bodey\Desktop\e11.jpg)
+  ![e11.jpg](/home/gad/pics/docker/e11.jpg)
 4. **Run Container**
 
 ```bash
