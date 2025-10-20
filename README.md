@@ -652,12 +652,12 @@ docker build -t app1 .
 
 ```
 
-- The First build:-
-  
-  ![d2.jpg](/home/gad/pics/docker/d2.jpg)
+- The First build:-  
+![d2](https://github.com/user-attachments/assets/f32502a0-801c-4385-a866-373d301b554f)
+
 - Note the **image size** (usually larger because Maven and build tools are included)
+![d3](https://github.com/user-attachments/assets/4004e3e7-aa81-4a99-83a4-1017de3c1079)
   
-  <img src="/home/gad/pics/docker/d3.jpg" title="" alt="d3.jpg" width="681">
 5. **Run Container**
 
 ```bash
@@ -722,14 +722,12 @@ CMD ["java","-jar","app.jar"]
 docker build -t app2 .
 ```
 
-- The First build:- a lot Faster than before.
-  
-  ![E1.jpg](/home/gad/pics/docker/E1.jpg)
+The First build:- a lot Faster than before.
+-![E1](https://github.com/user-attachments/assets/911ebf8c-ef3e-4a76-88a5-280882b0494d)
+ 
 - Note the **image size** (much smaller, ~400 MB)
-  
-  
-  
-  ![e11.jpg](/home/gad/pics/docker/e11.jpg)
+![e11](https://github.com/user-attachments/assets/61a7f575-3ee7-4026-8dc9-66b97a7a6269)
+   
 4. **Run Container**
 
 ```bash
