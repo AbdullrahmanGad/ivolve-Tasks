@@ -1,14 +1,14 @@
-## 📚 Table of Contents
-## Ansible
+# 📚 Table of Contents
+# Ansible
 - [1- Initial Ansible Configuration](#1--initial-ansible-configuration)
 - [2- Automated Web Server Configuration Using Ansible Playbooks](#2--automated-web-server-configuration-using-ansible-playbooks)
 - [3- Structured Configuration Management with Ansible Roles](#3--structured-configuration-management-with-ansible-roles)
 - [4- Securing Sensitive Data with Ansible Vault](#4--securing-sensitive-data-with-ansible-vault)
 - [5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)](#5--automated-host-discovery-with-ansible-dynamic-inventory-aws-ec2)
-## Docker
+# Docker
 - [Build-Tools-Tasks](#build-tools-tasks)
 
-# 1- Initial Ansible Configuration
+## 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
   
@@ -64,7 +64,7 @@ ansible managed -i inventory.ini -m command -a "df -h"
 
 </details>
 
-# 2- Automated Web Server Configuration Using Ansible Playbooks
+## 2- Automated Web Server Configuration Using Ansible Playbooks
 <details>
   <summary><strong>Click to expand</strong></summary>
   
@@ -157,7 +157,7 @@ curl http://managed_node_ip
        ```
 </details>
 
-# 3- Structured Configuration Management with Ansible Roles
+## 3- Structured Configuration Management with Ansible Roles
 <details>
   <summary><strong>Click to expand</strong></summary> 
   
@@ -242,7 +242,7 @@ curl http://managed_node_ip
 
 </details>
                    
-# 4- Securing Sensitive Data with Ansible Vault
+## 4- Securing Sensitive Data with Ansible Vault
 <details>
   <summary><strong>Click to expand</strong></summary>
   
@@ -364,7 +364,7 @@ mysql -u ivolve_user -p -e "SHOW DATABASES;"
 - Use `login_unix_socket: /var/run/mysqld/mysqld.sock` to let Ansible connect as MySQL root via socket (no password needed)
 </details>
 
-# 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
+## 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
 <details>
   <summary><strong>Click to expand</strong></summary>
   
