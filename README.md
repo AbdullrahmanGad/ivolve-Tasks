@@ -616,8 +616,9 @@ java -jar target/hello-ivolve-1.0-SNAPSHOT.jar
 
 ### These two tasks contains **two approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
 ---
+#### 1- Build and Run Java Spring Boot App Using Maven Base Image
 <details>
-<summary><strong>1- Build and Run Java Spring Boot App Using Maven Base Image</strong></summary>
+<summary><strong>Click to expand</strong></summary>
 
 ### **Steps**
 
@@ -686,9 +687,9 @@ docker rm task-8
 
 - **Build Time:** Long (Maven build inside image)
 </details>
-
+2- Run Java Spring Boot App Using Java Runtime Only (Optimized)
 <details>
-<summary><strong>2- Run Java Spring Boot App Using Java Runtime Only (Optimized)</strong></summary>
+<summary><strong>Click to expand</strong></summary>
 
 ### **Steps**
 
