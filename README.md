@@ -684,6 +684,7 @@ docker rm task-8
 
 - **Build Time:** Long (Maven build inside image)
 </details>
+
 ## 2- Run Java Spring Boot App Using Java Runtime Only "Optimized"
 <details>
 <summary><strong>Click to expand</strong></summary>
