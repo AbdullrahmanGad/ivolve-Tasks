@@ -8,7 +8,9 @@
 # Docker
 - [Build-Tools-Tasks](#build-tools-tasks)
 - [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
-- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2--run-java-spring-boot-app-using-java-runtime-only-(optimized))
+- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
+- [1- Build and Run Java Spring Boot App Using Maven Base Image](#1-build-and-run-java-spring-boot-app-using-maven-base-image)
+- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2-run-java-spring-boot-app-using-java-runtime-only-optimized)
 
 ## 1- Initial Ansible Configuration
 <details>
@@ -615,7 +617,7 @@ java -jar target/hello-ivolve-1.0-SNAPSHOT.jar
 ### These two tasks contains **two approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
 ---
 <details>
-<summary><strong>1: Build and Run Java Spring Boot App Using Maven Base Image</strong></summary>
+<summary><strong>1- Build and Run Java Spring Boot App Using Maven Base Image</strong></summary>
 
 ### **Steps**
 
