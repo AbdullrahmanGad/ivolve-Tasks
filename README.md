@@ -7,6 +7,8 @@
 - [5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)](#5--automated-host-discovery-with-ansible-dynamic-inventory-aws-ec2)
 # Docker
 - [Build-Tools-Tasks](#build-tools-tasks)
+- [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
+- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2--run-java-spring-boot-app-using-java-runtime-only-(optimized))
 
 ## 1- Initial Ansible Configuration
 <details>
@@ -543,7 +545,7 @@ java -jar build/libs/ivolve-app.jar
 </details>
 
 <details>
-<summary><strong>2: Building and Packaging Java Applications with Maven</strong></summary>
+<summary><strong>2- Building and Packaging Java Applications with Maven</strong></summary>
 
 ### Objective
 
@@ -682,10 +684,9 @@ docker rm task-8
 
 - **Build Time:** Long (Maven build inside image)
 </details>
----
 
 <details>
-<summary><strong>2: Run Java Spring Boot App Using Java Runtime Only (Optimized)</strong></summary>
+<summary><strong>2- Run Java Spring Boot App Using Java Runtime Only (Optimized)</strong></summary>
 
 ### **Steps**
 
@@ -754,7 +755,7 @@ docker rm task-9
 
 - **Build Time:** Faster (JAR already built outside Docker)
   
-- [x]  Note:- all file and code are included as .zip in case you don't want to clone.
+- [x]  Note:- all files + code are included as .zip in case you don't want to clone.
 </details>
 
 
