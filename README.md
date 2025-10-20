@@ -473,7 +473,7 @@ Use **Ansible Dynamic Inventory** to automatically discover and manage running E
 
 # Build-Tools-Tasks
 <details>
-<summary><strong>2: Building and Packaging Java Applications with Gradle</strong></summary>
+<summary><strong>1: Building and Packaging Java Applications with Gradle</strong></summary>
 
 ### Objective
 
