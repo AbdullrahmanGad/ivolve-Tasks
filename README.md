@@ -8,9 +8,7 @@
 # Docker
 - [Build-Tools-Tasks](#build-tools-tasks)
 - [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
-- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
-- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2-run-java-spring-boot-app-using-java-runtime-only-(optimized))
-
+- [2- Run Java Spring Boot App Using Java Runtime Only "Optimized"](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
 ## 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
@@ -686,7 +684,7 @@ docker rm task-8
 
 - **Build Time:** Long (Maven build inside image)
 </details>
-## 2- Run Java Spring Boot App Using Java Runtime Only (Optimized)
+## 2- Run Java Spring Boot App Using Java Runtime Only "Optimized"
 <details>
 <summary><strong>Click to expand</strong></summary>
 
