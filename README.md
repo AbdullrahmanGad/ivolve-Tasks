@@ -9,8 +9,7 @@
 - [Build-Tools-Tasks](#build-tools-tasks)
 - [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
 - [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
-- [1- Build and Run Java Spring Boot App Using Maven Base Image](#1-build-and-run-java-spring-boot-app-using-maven-base-image)
-- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2-run-java-spring-boot-app-using-java-runtime-only-optimized)
+- [2- Run Java Spring Boot App Using Java Runtime Only (Optimized)](#2-run-java-spring-boot-app-using-java-runtime-only-(optimized))
 
 ## 1- Initial Ansible Configuration
 <details>
