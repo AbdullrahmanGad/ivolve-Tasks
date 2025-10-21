@@ -9,8 +9,8 @@
 - [Build-Tools-Tasks](#build-tools-tasks)
 - [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
 - [2- Run Java Spring Boot App Using Java Runtime Only "Optimized"](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
-- [4- Multi-Stage Build for a Java Maven App](#4--multi-stage-build-for-a-java-maven-app)
-- [5- Managing Docker Environment Variables Across Build and Runtime](#5--managing-docker-environment-variables-across-build-and-runtime)
+- [3- Multi-Stage Build for a Java Maven App](#3--multi-stage-build-for-a-java-maven-app)
+- [4- Managing Docker Environment Variables Across Build and Runtime](#4--managing-docker-environment-variables-across-build-and-runtime)
 ## 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
@@ -760,7 +760,7 @@ docker rm task-9
 - [x]  Note:- all files + code are included as .zip in case you don't want to clone.
 </details>
 
-# **3- Multi-Stage Build for a Java Maven App**
+### **3- Multi-Stage Build for a Java Maven App**
 <details>
 <summary><strong>Click to expand</strong></summary>
 This Task demonstrates how to use **Docker multi-stage builds** to create lightweight production images for Java applications.  
@@ -866,7 +866,7 @@ docker rm app3
 ```
 </details>
 
-# **3- Managing Docker Environment Variables Across Build and Runtime**
+### **4- Managing Docker Environment Variables Across Build and Runtime**
 <details>
 <summary><strong>Click to expand</strong></summary>
 This Task demonstrates how to manage environment variables in Docker across **build time** and **runtime**, using a simple Flask web application.
