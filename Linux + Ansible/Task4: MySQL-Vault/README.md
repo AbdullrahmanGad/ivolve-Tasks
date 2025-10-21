@@ -1,5 +1,7 @@
-# Securing Sensitive Data with Ansible Vault
-
+## 4- Securing Sensitive Data with Ansible Vault
+<details>
+  <summary><strong>Click to expand</strong></summary>
+  
 ## Objectives
 
 - Install and configure MySQL server using Ansible
@@ -12,6 +14,7 @@
 ```yaml
 ---
 - name: Secure MySQL Setup with Ansible Vault
+
   hosts: all
   become: yes
   vars_files:
@@ -19,12 +22,15 @@
 
   tasks:
     - name: Install MySQL server
+
       apt:
         name: mysql-server
         state: present
+
         update_cache: yes
 
     - name: Install Python MySQL dependencies
+
       apt:
         name: python3-pymysql
         state: present
@@ -35,6 +41,7 @@
         state: started
         enabled: yes
 
+
     - name: Create iVolve database
       community.mysql.mysql_db:
         name: "{{ db_name }}"
@@ -44,10 +51,12 @@
     - name: Create user with privileges
       community.mysql.mysql_user:
         name: "{{ db_user }}"
+
         password: "{{ db_password }}"
         priv: "{{ db_name }}.*:ALL"
         state: present
         login_unix_socket: /var/run/mysqld/mysqld.sock
+
 
     - name: Validate DB connection and list databases
       community.mysql.mysql_query:
@@ -81,6 +90,7 @@ ansible-vault encrypt group_vars/all/vault.yml
 
 ```bash
 ansible-playbook -i inventory.ini secure_mysql.yml --ask-vault-pass
+
 ```
 
 3. **Verify Database**:
@@ -108,33 +118,5 @@ mysql -u ivolve_user -p -e "SHOW DATABASES;"
 - Ensure MySQL service is running and accessible on the managed node.
 
 - Use `login_unix_socket: /var/run/mysqld/mysqld.sock` to let Ansible connect as MySQL root via socket (no password needed)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</details>
 

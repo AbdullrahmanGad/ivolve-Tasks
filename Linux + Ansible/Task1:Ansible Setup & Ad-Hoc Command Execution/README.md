@@ -1,5 +1,7 @@
-# Initial Ansible Configuration
-
+## 1- Initial Ansible Configuration
+<details>
+  <summary><strong>Click to expand</strong></summary>
+  
 ## Objectives
 
 - Install and configure Ansible on the control node
@@ -11,9 +13,9 @@
 
 1. **Install Ansible** on control node:
    
-   ```bash
-   sudo apt install ansible   # or yum/dnf depending on your OS
-   ```
+```bash
+sudo apt install ansible   # or yum/dnf depending on your OS
+```
 
 2. **Generate SSH Key** on control node:
 
@@ -49,3 +51,6 @@ ansible managed -i inventory.ini -m command -a "df -h"
 - Use sudo if needed.
 
 - Firewall should allow SSH.
+
+</details>
+

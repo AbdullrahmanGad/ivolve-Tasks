@@ -1,5 +1,8 @@
-# Structured Configuration Management with Ansible Roles
 
+## 3- Structured Configuration Management with Ansible Roles
+<details>
+  <summary><strong>Click to expand</strong></summary> 
+  
 ## Objectives
 
 - Use Ansible roles for structured configuration
@@ -78,3 +81,6 @@
 - **Jenkins**:
 
 `systemctl status jenkins`
+
+</details>
+

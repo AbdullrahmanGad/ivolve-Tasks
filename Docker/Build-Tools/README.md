@@ -1,9 +1,6 @@
 # Build-Tools-Tasks
-
----
-
 <details>
-<summary><strong>Lab 6: Building and Packaging Java Applications with Gradle</strong></summary>
+<summary><strong>1: Building and Packaging Java Applications with Gradle</strong></summary>
 
 ### Objective
 
@@ -27,6 +24,7 @@ gradle -v
 2️⃣ **Clone Source Code**
 
 ```bash
+
 git clone https://github.com/Ibrahim-Adel15/build1.git
 cd build1
 ```
@@ -71,12 +69,8 @@ java -jar build/libs/ivolve-app.jar
 
 </details>
 
-</details>
-
-</details>
-
 <details>
-<summary><strong>Lab 7: Building and Packaging Java Applications with Maven</strong></summary>
+<summary><strong>2- Building and Packaging Java Applications with Maven</strong></summary>
 
 ### Objective
 
@@ -139,5 +133,5 @@ java -jar target/hello-ivolve-1.0-SNAPSHOT.jar
 - `hello-ivolve-1.0-SNAPSHOT.jar` created
 
 - App runs successfully
-
+</details>
 

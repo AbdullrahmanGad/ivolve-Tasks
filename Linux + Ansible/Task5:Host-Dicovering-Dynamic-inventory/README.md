@@ -1,6 +1,8 @@
-# Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
-
-### Objective
+## 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
+<details>
+  <summary><strong>Click to expand</strong></summary>
+  
+## Objective
 
 Use **Ansible Dynamic Inventory** to automatically discover and manage running EC2 instances on AWS using the `amazon.aws.aws_ec2` plugin, instead of manually defining hosts.
 
@@ -101,3 +103,5 @@ Use **Ansible Dynamic Inventory** to automatically discover and manage running E
 - You can filter by region, VPC, or tags.
 
 - Ad-hoc and playbook executions both confirm connectivity.
+</details>
+
