@@ -1,4 +1,4 @@
-## 1- Initial Ansible Configuration
+# 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
   

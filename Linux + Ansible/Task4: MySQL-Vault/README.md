@@ -1,4 +1,4 @@
-## 4- Securing Sensitive Data with Ansible Vault
+# 4- Securing Sensitive Data with Ansible Vault
 <details>
   <summary><strong>Click to expand</strong></summary>
   

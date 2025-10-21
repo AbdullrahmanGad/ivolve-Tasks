@@ -1,4 +1,4 @@
-## 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
+# 5- Automated Host Discovery with Ansible Dynamic Inventory (AWS EC2)
 <details>
   <summary><strong>Click to expand</strong></summary>
   
