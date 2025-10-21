@@ -9,6 +9,8 @@
 - [Build-Tools-Tasks](#build-tools-tasks)
 - [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
 - [2- Run Java Spring Boot App Using Java Runtime Only "Optimized"](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
+- [4- Multi-Stage Build for a Java Maven App](#4--multi-stage-build-for-a-java-maven-app)
+- [5- Managing Docker Environment Variables Across Build and Runtime](#5--managing-docker-environment-variables-across-build-and-runtime)
 ## 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
@@ -758,6 +760,274 @@ docker rm task-9
 - [x]  Note:- all files + code are included as .zip in case you don't want to clone.
 </details>
 
+# **3- Multi-Stage Build for a Java Maven App**
+<details>
+<summary><strong>Click to expand</strong></summary>
+This Task demonstrates how to use **Docker multi-stage builds** to create lightweight production images for Java applications.  
+The project uses **Maven** to build the application and **Temurin JDK** to run it.
+
+---
+
+## **Objectives**
+
+- Learn how to use Docker **multi-stage builds** for optimization.
+
+- Understand how to separate build and runtime environments.
+
+- Compare image sizes between full Maven builds and optimized runtime images.
+
+---
+
+## **📂 Application Overview**
+
+This is a simple Java Spring Boot application that runs on port **8080** and displays a message confirming the app is running.
+
+---
+
+## **Dockerfile (Multi-Stage Build)**
+
+```dockerfile
+# ---------- Build Stage ----------
+FROM maven:sapmachine AS build
+
+WORKDIR /app
+
+
+COPY . .
+
+RUN mvn package
+
+# ---------- Run Stage ----------
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
+```
+
+---
+
+## **Steps**
+
+### **1️⃣ Clone the Repository**
+
+```bash
+git clone https://github.com/Ibrahim-Adel15/Docker-1.git
+cd Docker-1
+```
+
+---
+
+### **2️⃣ Build the Multi-Stage Image**
+
+```bash
+docker build -t app3-multistage .
+```
+
+✅ **Note the image size** — it should be much smaller than a single-stage build, because only the JAR file and runtime dependencies are included.
+
+![a2.jpg](C:\Users\bodey\Desktop\a2.jpg)
+
+---
+
+### **3️⃣ Run the Container**
+
+```bash
+docker run -d -p 8080:8080 --name app3 app3-multistage
+```
+
+---
+
+### **4️⃣ Test the Application**
+
+Use `curl` or your browser:
+
+```bash
+curl localhost:8080
+```
+
+✅ Expected output:
+
+```
+Hello from Spring Boot! (or similar app response)
+```
+
+---
+
+### **5️⃣ Stop and Remove the Container**
+
+```bash
+docker stop app3
+docker rm app3
+```
+</details>
+
+# **3- Managing Docker Environment Variables Across Build and Runtime**
+<details>
+<summary><strong>Click to expand</strong></summary>
+This Task demonstrates how to manage environment variables in Docker across **build time** and **runtime**, using a simple Flask web application.
+
+---
+
+## **🧠 Objectives**
+
+- Understand how to pass environment variables to Docker containers.
+
+- Set variables using:
+  
+  - Command-line (`docker run -e`)
+  
+  - Environment file (`--env-file`)
+  
+  - Inside the Dockerfile (`ENV` instruction)
+
+---
+
+## **📂 Application Overview**
+
+A basic Flask application prints the current environment configuration:
+
+```python
+# app.py
+import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def show_env():
+    mode = os.getenv("APP_MODE", "default")
+    region = os.getenv("APP_REGION", "unknown")
+    return f"App mode: {mode}, Region: {region}"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
+```
+
+---
+
+## **<u>*Dockerfiles*</u>**
+
+### **Dockerfile 1 — Runtime Variables**
+
+Used for passing variables during container runtime.
+
+```dockerfile
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install flask
+
+EXPOSE 8080
+
+CMD ["python", "app.py"]
+```
+
+---
+
+### **Dockerfile 2 — Build-Time Variables**
+
+Used for defining variables within the image.
+
+```dockerfile
+FROM python:3.12-slim
+
+WORKDIR /app
+
+ENV APP_MODE=production
+ENV APP_REGION=canada-west
+
+COPY . .
+
+RUN pip install flask
+
+EXPOSE 8080
+
+CMD ["python", "app.py"]
+```
+
+---
+
+## **Steps**
+
+### **1️⃣ Clone the Repository**
+
+```bash
+git clone https://github.com/Ibrahim-Adel15/Docker-3.git
+cd Docker-3
+```
+
+---
+
+### **2️⃣ Build Docker Image**
+
+```bash
+docker build -t flaskapp:latest -f Dockerfile1 .
+```
+
+---
+
+### **3️⃣ Run Container with Environment Variables (Command Line)**
+
+```bash
+docker run -d -p 8080:8080 --name flaskapp-1 \
+  -e APP_MODE=development \
+  -e APP_REGION=us-east \
+  flaskapp:latest
+```
+
+✅ Output:
+
+```
+App mode: development, Region: us-east
+```
+
+---
+
+### **4️⃣ Run Container Using Environment File**
+
+Create a file named `.env`:
+
+```
+APP_MODE=staging
+APP_REGION=us-west
+```
+
+Then run:
+
+```bash
+docker run -d -p 8081:8080 --name flaskapp-2 --env-file .env flaskapp:latest
+```
+
+✅ Output:
+
+```
+App mode: staging, Region: us-west
+```
+
+---
+
+### **5️⃣ Build Image with Predefined Variables (Inside Dockerfile)**
+
+```bash
+docker build -t flask-w-env -f Dockerfile2 .
+docker run -d -p 8082:8080 --name flaskapp-3 flask-w-env
+```
+
+✅ Output:
+
+```
+App mode: production, Region: canada-west
+```
 
 
 
+![runs.jpg](C:\Users\bodey\Desktop\runs.jpg)
+</details>
