@@ -476,7 +476,7 @@ Use **Ansible Dynamic Inventory** to automatically discover and manage running E
 - Ad-hoc and playbook executions both confirm connectivity.
 </details>
 
-# Build-Tools-Tasks:-
+# Build-Tools-Tasks
 <details>
 <summary><strong>1: Building and Packaging Java Applications with Gradle</strong></summary>
 
@@ -615,7 +615,7 @@ java -jar target/hello-ivolve-1.0-SNAPSHOT.jar
 
 # Docker Tasks:-
 
-### These two tasks contains **two approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
+### These Three tasks contains **Three approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
 ---
 
 ### 1- Build and Run Java Spring Boot App Using Maven Base Image
@@ -867,6 +867,8 @@ docker stop app3
 docker rm app3
 ```
 </details>
+
+## environment-variables & Storage
 
 ### **4- Managing Docker Environment Variables Across Build and Runtime**
 <details>
