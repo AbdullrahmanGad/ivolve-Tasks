@@ -11,6 +11,8 @@
 - [2- Run Java Spring Boot App Using Java Runtime Only "Optimized"](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
 - [3- Multi-Stage Build for a Java Maven App](#3--multi-stage-build-for-a-java-maven-app)
 - [4- Managing Docker Environment Variables Across Build and Runtime](#4--managing-docker-environment-variables-across-build-and-runtime)
+
+# Ansible-Tasks:-
 ## 1- Initial Ansible Configuration
 <details>
   <summary><strong>Click to expand</strong></summary>
@@ -474,7 +476,7 @@ Use **Ansible Dynamic Inventory** to automatically discover and manage running E
 - Ad-hoc and playbook executions both confirm connectivity.
 </details>
 
-# Build-Tools-Tasks
+# Build-Tools-Tasks:-
 <details>
 <summary><strong>1: Building and Packaging Java Applications with Gradle</strong></summary>
 
@@ -611,7 +613,7 @@ java -jar target/hello-ivolve-1.0-SNAPSHOT.jar
 - App runs successfully
 </details>
 
-# Docker Tasks:
+# Docker Tasks:-
 
 ### These two tasks contains **two approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
 ---
@@ -1029,5 +1031,5 @@ App mode: production, Region: canada-west
 
 
 
-![runs.jpg](C:\Users\bodey\Desktop\runs.jpg)
+![runs](https://github.com/user-attachments/assets/a1e48f84-1326-4df4-a611-14db488c61aa)
 </details>
