@@ -1,5 +1,6 @@
-# **3- Managing Docker Environment Variables Across Build and Runtime**
-
+### **4- Managing Docker Environment Variables Across Build and Runtime**
+<details>
+<summary><strong>Click to expand</strong></summary>
 This Task demonstrates how to manage environment variables in Docker across **build time** and **runtime**, using a simple Flask web application.
 
 ---
@@ -160,4 +161,5 @@ App mode: production, Region: canada-west
 
 
 
-![runs.jpg](C:\Users\bodey\Desktop\runs.jpg)
+![runs](https://github.com/user-attachments/assets/a1e48f84-1326-4df4-a611-14db488c61aa)
+</details>
