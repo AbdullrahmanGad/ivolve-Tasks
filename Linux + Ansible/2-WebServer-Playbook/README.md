@@ -1,6 +1,4 @@
 # 2- Automated Web Server Configuration Using Ansible Playbooks
-<details>
-  <summary><strong>Click to expand</strong></summary>
   
 ## Objectives
 
@@ -89,5 +87,4 @@ curl http://managed_node_ip
            src: index.html
            dest: /var/www/html/index.html
        ```
-</details>
 

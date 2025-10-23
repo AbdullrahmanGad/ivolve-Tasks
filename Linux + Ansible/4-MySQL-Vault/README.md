@@ -1,6 +1,4 @@
 # 4- Securing Sensitive Data with Ansible Vault
-<details>
-  <summary><strong>Click to expand</strong></summary>
   
 ## Objectives
 
@@ -118,5 +116,4 @@ mysql -u ivolve_user -p -e "SHOW DATABASES;"
 - Ensure MySQL service is running and accessible on the managed node.
 
 - Use `login_unix_socket: /var/run/mysqld/mysqld.sock` to let Ansible connect as MySQL root via socket (no password needed)
-</details>
 

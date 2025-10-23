@@ -1,6 +1,4 @@
 # 1- Initial Ansible Configuration
-<details>
-  <summary><strong>Click to expand</strong></summary>
   
 ## Objectives
 
@@ -51,6 +49,4 @@ ansible managed -i inventory.ini -m command -a "df -h"
 - Use sudo if needed.
 
 - Firewall should allow SSH.
-
-</details>
 

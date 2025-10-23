@@ -1,7 +1,5 @@
 
 # 3- Structured Configuration Management with Ansible Roles
-<details>
-  <summary><strong>Click to expand</strong></summary> 
   
 ## Objectives
 
@@ -81,6 +79,4 @@
 - **Jenkins**:
 
 `systemctl status jenkins`
-
-</details>
 
