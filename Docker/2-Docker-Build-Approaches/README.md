@@ -1,7 +1,7 @@
 ## These Three tasks contains **Three approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
 ---
-- [1-Java Maven Build in Docker](#1--Java-Maven-Build-in-Docker)
-- [2-Dockerizing a Pre-Built Spring Boot App](#2--Dockerizing-a-Pre-Built-Spring-Boot-App)
+- [1-Java Maven Build in Docker](#1--java-maven-build-in-docker)
+- [2-Dockerizing a Pre-Built Spring Boot App](#2--dockerizing-a-pre-built-spring-boot-app)
 - [3- Multi-Stage Build for a Java Maven App](#3--multi-stage-build-for-a-java-maven-app)
 
 ### 1-Java Maven Build in Docker
