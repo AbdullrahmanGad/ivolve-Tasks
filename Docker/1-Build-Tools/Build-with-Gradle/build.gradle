@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.ivolve'
+version = '1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+application {
+    mainClass = 'com.ivolve.App'
+}
+ 
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.ivolve.App'
+        )
+    }
+    archiveBaseName.set("ivolve-app")
+    archiveVersion.set("")
+    archiveClassifier.set("")
+}
+

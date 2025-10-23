@@ -1,10 +1,10 @@
 ## These Three tasks contains **Three approaches** to containerizing a Java Spring Boot application, showing the impact on **build time** and **image size**.
 ---
-- [1- Build and Run Java Spring Boot App Using Maven Base Image](#1--build-and-run-java-spring-boot-app-using-maven-base-image)
-- [2- Run Java Spring Boot App Using Java Runtime Only "Optimized"](#2--run-java-spring-boot-app-using-java-runtime-only-optimized)
+- [1-Java Maven Build in Docker](#1--Java-Maven-Build-in-Docker)
+- [2-Dockerizing a Pre-Built Spring Boot App](#2--Dockerizing-a-Pre-Built-Spring-Boot-App)
 - [3- Multi-Stage Build for a Java Maven App](#3--multi-stage-build-for-a-java-maven-app)
 
-### 1- Build and Run Java Spring Boot App Using Maven Base Image
+### 1-Java Maven Build in Docker
 <details>
 <summary><strong>Click to expand</strong></summary>
 
@@ -76,7 +76,7 @@ docker rm task-8
 - **Build Time:** Long (Maven build inside image)
 </details>
 
-### 2- Run Java Spring Boot App Using Java Runtime Only "Optimized"
+### 2-Dockerizing a Pre-Built Spring Boot App
 <details>
 <summary><strong>Click to expand</strong></summary>
 
