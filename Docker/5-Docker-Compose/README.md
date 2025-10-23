@@ -12,11 +12,8 @@ The setup builds the app from source, connects it to a MySQL database, persists 
 ├── docker-compose.yml  
 ├── logs/  
 ├── frontend/
-
 ├── server.js
-
 ├── db.js
-
 ├── package.json  
 └── README.md
 
@@ -96,7 +93,7 @@ volumes:
 docker-compose up -d --build
 ```
 
-![3.jpg](F:\Git-hub\pics\Compos\3.jpg)
+![3](https://github.com/user-attachments/assets/99f46d5e-dd7b-417d-b444-9f577eb9688d)
 
 Check running containers:
 
@@ -104,7 +101,7 @@ Check running containers:
 docker ps
 ```
 
-![8.jpg](F:\Git-hub\pics\Compos\8.jpg)
+![8](https://github.com/user-attachments/assets/a7577f02-9ccc-400c-a31e-f711fa217bfa)
 
 ---
 
@@ -118,7 +115,7 @@ Open in your browser:
 http://localhost:3000
 ```
 
-![4.jpg](F:\Git-hub\pics\Compos\4.jpg)
+![4](https://github.com/user-attachments/assets/a03cb0e4-b289-43f6-983f-5040f4df706e)
 
 ### 
 
@@ -130,10 +127,7 @@ Check:
 http://localhost:3000/health
 http://localhost:3000/ready
 ```
-
-<img src="file:///F:/Git-hub/pics/Compos/6.jpg" title="" alt="6.jpg" width="647">
-
-<img title="" src="file:///F:/Git-hub/pics/Compos/5.jpg" alt="5.jpg" width="646">
+![5](https://github.com/user-attachments/assets/08a4d062-001e-419d-b508-3849f9ad8fcf)![6](https://github.com/user-attachments/assets/6e318991-68e0-4681-906b-c84d22ec51f5)
 
 ### 3. View Live Logs
 
@@ -147,7 +141,7 @@ or from the mounted folder:
 tail -f logs/access.log
 ```
 
-![7.5.jpg](F:\Git-hub\pics\Compos\7.5.jpg)
+![7 5](https://github.com/user-attachments/assets/0c99a970-b75a-4720-b160-bafd3ce2a681)
 
 ---
 
@@ -178,7 +172,8 @@ docker login
 docker push yourdockerhubusername/kubernets-app:latest
 ```
 
-![7.jpg](F:\Git-hub\pics\Compos\7.jpg)
+![7](https://github.com/user-attachments/assets/5bc099eb-1510-40b0-a756-3b1a29e7f803)
+
 
 Verify at:  
 https://hub.docker.com/repositories
@@ -196,3 +191,4 @@ https://hub.docker.com/repositories
 - Verified app health and logs
 
 - Pushed the final image to DockerHub
+
