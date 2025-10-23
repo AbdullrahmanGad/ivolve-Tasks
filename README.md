@@ -1,6 +1,6 @@
-# iVolve-DevOps-Tasks:-
+# iVolve-DevOps-Internship:-
 
-This repository contains hands-on Tasks covering **Linux**, **Ansible**, and **Docker** — demonstrating configuration management, automation, and containerization best practices.
+This repo contains hands-on Tasks covering **Ansible**, and **Docker** — demonstrating configuration management, automation, and containerization best practices.
 ---
 
 ## Ansible 
