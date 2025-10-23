@@ -26,3 +26,7 @@ This repo contains hands-on Tasks covering **Ansible**, and **Docker** — demon
 ### 🌍 Environment Variables Management
 
 4. [Managing Docker Environment Variables Across Build and Runtime](Docker/3-Docker-env)
+
+### 🗂️ Data Persistence and Multi-Container Setup
+5. [Docker Volume and Bind Mount with Nginx](Docker/4-Docker%20volume)  
+6. [Containerized Node.js and MySQL Stack Using Docker Compose](Docker/5-Docker-Compose)
