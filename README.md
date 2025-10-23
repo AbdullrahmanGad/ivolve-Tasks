@@ -22,9 +22,9 @@ Each folder includes its own `README.md` with setup instructions, Dockerfiles, a
 ## 📚 Table of Contents
 
 ### 🧱 Java & Build Tools
-1. [Java Maven Build in Docker](Docker/1-Build-Tools/build1)
-2. [Dockerizing a Pre-Built Spring Boot App](Docker/1-Build-Tools/build2)
-3. [Multi-Stage Build for a Java Maven App](Docker/1-Build-Tools/build3)
+1. [Java Maven Build in Docker](Docker/1-Build-Tools/1-Java-Maven Build-in-Docker)
+2. [Dockerizing a Pre-Built Spring Boot App](Docker/1-Build-Tools/2-Dockerizing-a-Pre-Built-Spring-Boot-App)
+3. [Multi-Stage Build for a Java Maven App](Docker/1-Build-Tools/3-Multi-stage-Build)
 
 ### ⚙️ Configuration & Environment Management
 4. [Managing Docker Environment Variables Across Build and Runtime](Docker/2-Environment-Variables)
