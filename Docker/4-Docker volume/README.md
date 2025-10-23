@@ -30,7 +30,7 @@ docker volume ls
 docker volume inspect nginx_logs
 ```
 
-![Docker_volume_1.jpg](F:\Git-hub\pics\Docker-volume\Docker_volume_1.jpg)
+![Docker_volume_1](https://github.com/user-attachments/assets/7190f9fe-f7c4-4303-bddb-cdc83e5e7e12)
 
 ---
 
@@ -48,7 +48,7 @@ mkdir -p nginx-bind/html
 echo "Hello from Bind Mount" > nginx-bind/html/index.html
 ```
 
-![Docker_volume_2.jpg](F:\Git-hub\pics\Docker-volume\Docker_volume_2.jpg)
+![Docker_volume_2](https://github.com/user-attachments/assets/16f55767-c967-4974-b423-f7f85a218a9f)
 
 ---
 
@@ -69,7 +69,7 @@ docker run -d --name nginx-test \
   -p 8080:80 nginx
 ```
 
-![3.jpg](F:\Git-hub\pics\Docker-volume\3.jpg)
+![3](https://github.com/user-attachments/assets/5e65bcd0-9adb-405d-ac6d-327609f9d8ec)
 
 ---
 
@@ -83,7 +83,7 @@ curl http://localhost:8080
 
 You should see:
 
-![4.jpg](F:\Git-hub\pics\Docker-volume\4.jpg)
+![4](https://github.com/user-attachments/assets/390dcac3-dede-44ed-99df-09b4f59248c4)
 
 ---
 
@@ -101,7 +101,7 @@ Run curl again:
 curl http://localhost:8080
 ```
 
-![5.jpg](F:\Git-hub\pics\Docker-volume\5.jpg)
+![5](https://github.com/user-attachments/assets/aa5d87c6-daae-4f25-bb54-bc06ec7c5255)
 
 ---
 
@@ -119,7 +119,7 @@ Now confirm they exist on the host volume path:
 sudo ls /var/lib/docker/volumes/nginx_logs/_data
 ```
 
-![6.jpg](F:\Git-hub\pics\Docker-volume\6.jpg)
+![6](https://github.com/user-attachments/assets/1616657e-968a-428e-86e4-601c5da2f3e3)
 
 ---
 
@@ -155,3 +155,4 @@ docker volume rm nginx_logs
 - Understood how **Bind Mounts** sync host files in real time.
 
 - Verified both concepts using Nginx web server and logs.
+
