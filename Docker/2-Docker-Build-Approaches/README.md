@@ -4,7 +4,7 @@
 - [2- Dockerizing a Pre-Built Spring Boot App](#2--dockerizing-a-pre-built-spring-boot-app)
 - [3- Multi-Stage Build for a Java Maven App](#3--multi-stage-build-for-a-java-maven-app)
 
-### 1-Java Maven Build in Docker
+### 1- Java Maven Build in Docker
 <details>
 <summary><strong>Click to expand</strong></summary>
 
@@ -76,7 +76,7 @@ docker rm task-8
 - **Build Time:** Long (Maven build inside image)
 </details>
 
-### 2-Dockerizing a Pre-Built Spring Boot App
+### 2- Dockerizing a Pre-Built Spring Boot App
 <details>
 <summary><strong>Click to expand</strong></summary>
 
