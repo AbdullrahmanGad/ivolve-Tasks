@@ -9,11 +9,11 @@ A complete guide to building a production-ready Kubernetes cluster from scratch 
 
 ## 📋 Table of Contents
 
-- [Architecture Overview](#-architecture-overview)
-- [Prerequisites](#-prerequisites)
-- [Infrastructure Setup](#-infrastructure-setup)
+- [Architecture Overview](#architecture-overview)
+- [Prerequisites](#prerequisites)
+- [Infrastructure Setup](#infrastructure-setup)
 - [Installation Steps](#-installation-steps)
-  - [Common Setup (Both Nodes)](#1️⃣-common-setup-both-nodes)
+  - [Both Nodes](#1️⃣-both-nodes)
   - [Master Node Configuration](#2️⃣-master-node-configuration)
   - [Worker Node Configuration](#3️⃣-worker-node-configuration)
   - [Network Plugin Installation](#4️⃣-network-plugin-installation)
@@ -88,7 +88,7 @@ sudo hostnamectl set-hostname worker
 
 ## 📦 Installation Steps
 
-### 1️⃣ Both Nodes:-
+### 1️⃣ Both Nodes
 
 Perform these steps on **BOTH** master and worker nodes.
 
@@ -119,7 +119,7 @@ free -h  # Verify swap shows 0
 
 #### 1.2 Make sure Docker and Containerd are installed.
 
-![1.jpg](F:\Git-hub\pics\cluster\1.jpg)
+![1](https://github.com/user-attachments/assets/12d2a446-10eb-49bc-8d5b-5daf4aabaecf)
 
 #### 1.3 Configure Containerd with systemd cgroup
 
@@ -131,7 +131,7 @@ containerd config default | sudo tee /etc/containerd/config.toml
 sudo nano /etc/containerd/config.toml
 ```
 
-![2.jpg](F:\Git-hub\pics\cluster\2.jpg)
+![2](https://github.com/user-attachments/assets/3a207797-2bc9-4f6c-8d16-e3dcbcf27ec5)
 
 Find the section:
 
@@ -139,7 +139,7 @@ Find the section:
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
 ```
 
-![3new.jpg](F:\Git-hub\pics\cluster\3new.jpg)
+![3new](https://github.com/user-attachments/assets/24c6b89f-6d68-4f08-9c95-1a386902cd14)
 
 Modify the `SystemdCgroup` parameter to `true`:
 
@@ -193,7 +193,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-![4.jpg](F:\Git-hub\pics\cluster\4.jpg)
+![4](https://github.com/user-attachments/assets/36a68f63-49f7-4f9d-b422-4ea28cd57445)
 
 > **Note**: You can skip installing `kubectl` on worker nodes if you don't plan to run kubectl commands there.
 
@@ -209,7 +209,8 @@ Perform these steps **ONLY** on the master node.
 sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address <MASTER_NODE_IP>
 ```
 
-![5new.jpg](F:\Git-hub\pics\cluster\5new.jpg)
+![5new](https://github.com/user-attachments/assets/45bb5701-1969-4378-8b5b-026761586f8a)
+
 
 **Important Parameters:**
 
@@ -226,7 +227,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-![loading-ag-603](F:\Git-hub\pics\cluster\7.jpg)
+![7](https://github.com/user-attachments/assets/bd2dd661-b0e7-4e58-bae3-f9f4e227ff9f)
 
 #### 2.3 Save the Join Command
 
@@ -260,7 +261,7 @@ sudo kubeadm join <MASTER_NODE_IP>:6443 --token qa7dzv.fv1e4s4p1d77wzjb \
 
 You should see output confirming the node has joined the cluster.
 
-![8NEW.jpg](F:\Git-hub\pics\cluster\8NEW.jpg)
+![8NEW](https://github.com/user-attachments/assets/b6ec4380-4057-4de9-b44a-cecf44703942)
 
 ---
 
@@ -274,7 +275,7 @@ Run this on the **master node**:
 kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 ```
 
-![9.jpg](F:\Git-hub\pics\cluster\9.jpg)
+![9](https://github.com/user-attachments/assets/cd2d8d46-ef74-4f50-a814-9bf8e0a5f18e)
 
 Wait a few moments for the network plugin to initialize.
 
@@ -286,7 +287,7 @@ Wait a few moments for the network plugin to initialize.
 
 On the master node:
 
-![10.jpg](F:\Git-hub\pics\cluster\10.jpg)
+![10](https://github.com/user-attachments/assets/2add7d70-9cc7-4c32-bd53-178fc536a61e)
 
 ### Verify Node Status
 
@@ -300,8 +301,8 @@ nano nginx.yml
 # copy the yaml for deployment and service from k8s docs
 ```
 
-![test.jpg](F:\Git-hub\pics\cluster\test.jpg)
+![test](https://github.com/user-attachments/assets/f2705a06-329d-4292-9784-cd5b705636af)
 
-![test1.jpg](F:\Git-hub\pics\cluster\test1.jpg)
+![test1](https://github.com/user-attachments/assets/af99c5c5-6d34-4d17-8648-45d231142ed5)
 
-![test2.jpg](F:\Git-hub\pics\cluster\test2.jpg)
+![test2](https://github.com/user-attachments/assets/2b0c1c1a-ff84-47cf-993e-2226a621cc30)
