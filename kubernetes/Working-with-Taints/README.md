@@ -53,7 +53,7 @@ kubectl get nodes
 kubectl taint nodes worker workload=worker:NoSchedule
 ```
 
-![Screenshot 2025-10-27 112615.jpg](F:\Git-hub\pics\cluster\1\Screenshot%202025-10-27%20112615.jpg)
+![Screenshot 2025-10-27 112615](https://github.com/user-attachments/assets/9f2cb5a3-b274-44aa-a339-b388743ec60b)
 
 **Explanation:**
 
@@ -66,7 +66,7 @@ kubectl taint nodes worker workload=worker:NoSchedule
 kubectl describe node worker | grep -A 3 Taints
 ```
 
-![2.jpg](F:\Git-hub\pics\cluster\1\2.jpg)
+![2](https://github.com/user-attachments/assets/46d39be9-0dc5-47ef-9563-cd298bdb04fa)
 
 ### Step 4: Describe All Nodes
 
@@ -74,7 +74,7 @@ kubectl describe node worker | grep -A 3 Taints
 kubectl describe nodes
 ```
 
-![33.jpg](F:\Git-hub\pics\cluster\1\33.jpg)
+![33](https://github.com/user-attachments/assets/79fe7ad9-a074-4784-b006-7cbb6f28babe)
 
 Look for the `Taints:` section in each node's output.
 
@@ -108,7 +108,7 @@ kubectl apply -f nginx-no-toleration.yaml
 kubectl get pods -o wide
 ```
 
-![no.jpg](F:\Git-hub\pics\cluster\1\no.jpg)
+![no](https://github.com/user-attachments/assets/c0b2bc8c-40d4-4e7c-a140-7aeb85d1abc3)
 
 **Result:** Pod will NOT schedule on the worker node (will be Pending or schedule on master if master taint is removed).
 
@@ -133,6 +133,7 @@ spec:
   - name: nginx
     image: nginx:latest
     ports:
+
     - containerPort: 80
 ```
 
@@ -143,7 +144,7 @@ kubectl apply -f nginx-with-toleration.yaml
 kubectl get pods -o wide
 ```
 
-![yes.jpg](F:\Git-hub\pics\cluster\1\yes.jpg)
+![yes](https://github.com/user-attachments/assets/5584f8cc-f930-430b-92e3-5d3f325e7379)
 
 **Result:** Pod CAN schedule on the worker node.
 
