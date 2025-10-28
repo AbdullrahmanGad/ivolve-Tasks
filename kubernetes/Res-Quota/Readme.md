@@ -46,11 +46,11 @@ Apply the namespace:
 kubectl apply -f namespace.yaml
 ```
 
-![ns.jpg](F:\Git-hub\pics\cluster\2\ns.jpg)
+![ns](https://github.com/user-attachments/assets/b8d58e6f-5d0d-4be1-b7a7-5f5a6efc08c5)
 
 **Verify namespace is created:**
 
-![ns2.jpg](F:\Git-hub\pics\cluster\2\ns2.jpg)
+![ns2](https://github.com/user-attachments/assets/7b7f9a97-c3a6-43d3-bd07-e69c643dde12)
 
 ### Step 2: Create ResourceQuota
 
@@ -87,9 +87,7 @@ kubectl get resourcequota -n ivolve
 
 **Expected Output:**
 
-![res.jpg](F:\Git-hub\pics\cluster\2\res.jpg)
-
-
+![res](https://github.com/user-attachments/assets/84639ab5-7316-422b-af24-b0fa9be2bb2b)
 
 ## Verification
 
@@ -106,6 +104,7 @@ metadata:
 spec:
   containers:
   - name: nginx
+
     image: nginx:latest
 ```
 
@@ -150,6 +149,6 @@ pods "nginx-3" is forbidden: exceeded quota: pod-limit-quota,
 requested: pods=1, used: pods=2, limited: pods=2
 ```
 
-![test.jpg](F:\Git-hub\pics\cluster\2\test.jpg)
+![test](https://github.com/user-attachments/assets/bdad9c34-8fd4-4c46-84f5-e41f6c1f693a)
 
 ✅ **SUCCESS!** The ResourceQuota is working correctly - it blocks the third pod!
