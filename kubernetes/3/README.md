@@ -149,7 +149,7 @@ kubectl apply -f mysql-secret.yaml
 secret/mysql-secret created
 ```
 
-![3.jpg](F:\Git-hub\pics\cluster\3\3.jpg)
+![3](https://github.com/user-attachments/assets/3ef9d24b-eacb-457f-90ee-d3b919c2f0ef)
 
 ---
 
@@ -167,7 +167,7 @@ kubectl get configmap mysql-config -n ivolve
 kubectl get secret mysql-secret -n ivolve
 ```
 
-![4.jpg](F:\Git-hub\pics\cluster\3\4.jpg)
+![4](https://github.com/user-attachments/assets/71bbc89f-6b16-49f1-afb4-bfefe5c21959)
 
 Detailed view:
 
@@ -201,4 +201,5 @@ echo
 
 ```
 root**
+
 ```
