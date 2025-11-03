@@ -30,3 +30,11 @@ This repo contains hands-on Tasks covering **Ansible**, and **Docker** — demon
 ### 🗂️ Data Persistence and Multi-Container Setup
 5. [Docker Volume and Bind Mount with Nginx](Docker/4-Docker%20volume)  
 6. [Containerized Node.js and MySQL Stack Using Docker Compose](Docker/5-Docker-Compose)
+
+## K8S
+
+1. **Kubernetes Cluster Setup with Kubeadm**
+2. **Task 1: Node Isolation Using Taints in Kubernetes**
+3. **Task 2: Namespace Management and Resource Quota Enforcement**
+4. **Task 3: Managing Configuration and Sensitive Data with ConfigMaps and Secrets**
+5. **Kubernetes Microservices Deployment — MySQL + Node.js App**
