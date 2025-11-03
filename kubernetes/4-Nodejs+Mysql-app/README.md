@@ -7,19 +7,30 @@ It implements **Stateful workloads, storage, secrets, init-containers, probes, r
 
 ## Project Structure
 
-.
 ├── kubernetes/
+
 │   ├── docker-secret.yml  (make your own)
+
 │   ├── config-map.yml
+
 │   ├── secret.yml
+
 │   ├── mysql-pv.yml
+
 │   ├── mysql-pvc.yml
+
 │   ├── headless-svc-mysql.yml
+
 │   ├── mysql-statefulset.yml
+
 │   ├── myapp-pv.yml
+
 │   ├── myapp-pvc.yml
+
 │   ├── deployment.yml
+
 │   ├── Net-policy.yml
+
 └── README.md
 
 ---
@@ -63,7 +74,7 @@ cat ~/.dokcer/config.json | base64 -w 0
 
 - create docker-secret.yml
   
-  ![docsec.jpg](F:\Git-hub\pics\cluster\from1\docsec.jpg)
+![docsec](https://github.com/user-attachments/assets/f6c86bde-8862-4801-a90d-93c0356a84fc)
 
 ---
 
@@ -71,15 +82,13 @@ cat ~/.dokcer/config.json | base64 -w 0
 
 Stores MySQL configuration (database name, etc.).
 
-![5.jpg](F:\Git-hub\pics\cluster\from1\5.jpg)
+![5](https://github.com/user-attachments/assets/bc7f804e-6fed-4f9d-9e7d-b7a8f2a8e482)
 
-![6.jpg](F:\Git-hub\pics\cluster\from1\6.jpg)
+![6](https://github.com/user-attachments/assets/c091ba45-a7be-47f3-8df1-a858821c874b)
 
 ### Verify:-
 
-![5.5.jpg](F:\Git-hub\pics\cluster\from1\5.5.jpg)
-
-
+![5 5](https://github.com/user-attachments/assets/4113219c-a434-4dc2-a7eb-888ebc1cee7e)
 
 ---
 
@@ -87,14 +96,14 @@ Stores MySQL configuration (database name, etc.).
 
 **PV & PVC** for MySQL logs & data.
 
-![7.jpg](F:\Git-hub\pics\cluster\from1\7.jpg)
+![7](https://github.com/user-attachments/assets/be2c60fc-61a5-499c-b33f-978e89dbd4cb)
 
 ```bash
 kubectl apply -f mysql-pv.yml
 kubectl apply -f mysql-pvc.yml
 ```
 
-![9edit.jpg](F:\Git-hub\pics\cluster\3\9edit.jpg)
+![9edit](https://github.com/user-attachments/assets/47f3e67a-d71b-4002-85c1-a303965c4cdf)
 
 ---
 
@@ -104,7 +113,7 @@ kubectl apply -f mysql-pvc.yml
 kubectl apply -f headless-svc-mysql.yml
 ```
 
-![10.jpg](F:\Git-hub\pics\cluster\from1\10.jpg)
+![10](https://github.com/user-attachments/assets/46872b98-6898-4d41-95ae-3879fef3530a)
 
 ---
 
@@ -118,7 +127,7 @@ kubectl apply -f headless-svc-mysql.yml
 
 - Toleration added for worker node taint
 
-> ![11.jpg](F:\Git-hub\pics\cluster\from1\11.jpg)
+> ![11](https://github.com/user-attachments/assets/5131d2e7-603e-4bba-a2e0-0f0ec02ad600)
 > 
 > **Outcome:** MySQL pod starts with persistent storage & private DNS
 
@@ -133,7 +142,7 @@ kubectl apply -f myapp-pv.yml
 kubectl apply -f myapp-pvc.yml
 ```
 
-![14edit.jpg](F:\Git-hub\pics\cluster\3\14edit.jpg)
+![14](https://github.com/user-attachments/assets/63113e1e-1d1a-4f53-a62e-4523d78508a3)
 
 ---
 
@@ -157,47 +166,47 @@ kubectl apply -f myapp-pvc.yml
 
 - replicas & Tolerations:
 
-![1.1.jpg](F:\Git-hub\pics\cluster\from1\dep\1.1.jpg)
+![1 1](https://github.com/user-attachments/assets/5ac114f0-8dd1-4084-b2e2-c82b1997968d)
 
 - Init-Container:
 
-![1.2.jpg](F:\Git-hub\pics\cluster\from1\dep\1.2.jpg)
+![1 2](https://github.com/user-attachments/assets/c432e013-0f47-40ba-9874-f3962fa145a3)
 
 - mysql commands to create (db+user)
 
-![3.jpg](F:\Git-hub\pics\cluster\from1\dep\3.jpg)
+![3](https://github.com/user-attachments/assets/3d6c438f-a0ff-422c-85a4-84baf79feb25)
 
 - nodejs-app:
 
-![4.jpg](F:\Git-hub\pics\cluster\from1\dep\4.jpg)
+![4](https://github.com/user-attachments/assets/a9ef42d6-3896-4b65-9431-b9187fac0113)
 
 - Probes, Resources & Limits:
 
-![5.jpg](F:\Git-hub\pics\cluster\from1\dep\5.jpg)
+![5](https://github.com/user-attachments/assets/bb4949bd-a272-4f4f-8603-258b05e2ec20)
 
 - Volume &  nodejs-app internal service:
 
-![1.6.jpg](F:\Git-hub\pics\cluster\from1\dep\1.6.jpg)
+![1 6](https://github.com/user-attachments/assets/1d340123-6682-4e17-9556-ae3b38cae46a)
 
 - Verify resources and limits:
 
-![20.jpg](F:\Git-hub\pics\cluster\from1\20.jpg)
+![20](https://github.com/user-attachments/assets/62276cfe-6947-4c9a-9360-ae3aae321df1)
 
 - Monitor with kubectl top: (Note: should be installed first.)
 
-![22.jpg](F:\Git-hub\pics\cluster\from1\22.jpg)
+![22](https://github.com/user-attachments/assets/43f79665-8768-4f66-b913-655a95f83af2)
 
 - Notice one of the pods is pending because of the lack of resources.
 
-![23.jpg](F:\Git-hub\pics\cluster\from1\23.jpg)
+![23](https://github.com/user-attachments/assets/58ecbf19-4c70-4106-874d-080f35933068)
 
-![24.jpg](F:\Git-hub\pics\cluster\from1\24.jpg)
+![24](https://github.com/user-attachments/assets/879e2f4d-6433-41b2-bcbe-877b2367e34d)
 
 ---
 
 ### 🔐 Network Policy
 
-![netpolicy1.1.jpg](F:\Git-hub\pics\cluster\from1\netpolicy1.1.jpg)
+![netpolicy1 1](https://github.com/user-attachments/assets/d23a56d6-a7d4-4b6e-9ec4-ecaade35f963)
 
 Only allow Node.js app → MySQL access on port **3306**.
 
@@ -207,9 +216,9 @@ Only allow Node.js app → MySQL access on port **3306**.
 
 - Test external pod (blocked):
 
-![netpolicy1.2.jpg](F:\Git-hub\pics\cluster\from1\netpolicy1.2.jpg)
+![netpolicy1 2](https://github.com/user-attachments/assets/4caa0883-b53f-4c2c-9533-97032a0ea5fa)
 
-![netpolicy1.3.jpg](F:\Git-hub\pics\cluster\from1\netpolicy1.3.jpg)
+![netpolicy1 3](https://github.com/user-attachments/assets/d3b4408e-6330-437f-88b5-bfed75f6232d)
 
 ---
 
@@ -217,7 +226,7 @@ Only allow Node.js app → MySQL access on port **3306**.
 
 - inside the container verify dtabase ivolve is created and ivolve-user exists
 
-![17.jpg](F:\Git-hub\pics\cluster\from1\17.jpg)
+![17](https://github.com/user-attachments/assets/ef7c2360-5764-4c36-a557-0b57c5fe2aea)
 
 - use port-forwarding then access the app using the browser on port 3000. 
 
@@ -225,4 +234,4 @@ Only allow Node.js app → MySQL access on port **3306**.
 kubectl port-forward svc/nodejs-service 8080:3000 -n ivolve
 ```
 
-![19.jpg](F:\Git-hub\pics\cluster\from1\19.jpg)
+![19](https://github.com/user-attachments/assets/31e8af01-1e66-449e-a30a-9c430720c079)
