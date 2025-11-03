@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  namespace: ivolve
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      tolerations:
+        - key: "workload"
+          operator: "Equal"
+          value: "worker"
+          effect: "NoSchedule"
+      imagePullSecrets:
+        - name: dockerhub-secret
+
+
+      initContainers:
+        - name: init-mysql-setup
+          image: mysql:5.7
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DB_PASSWORD
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+          command:
+            - sh
+            - -c
+            - |
+              mysql -h $DB_HOST -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS ivolve;"
+              echo "Database created"
+          
+              mysql -h $DB_HOST -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
+              echo "User created"
+          
+              mysql -h $DB_HOST -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON ivolve.* TO '${DB_USER}'@'%';"
+              echo "Privileges granted"
+          
+              mysql -h $DB_HOST -u root -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
+              echo "Database initialization completed successfully!"
+      # 🟢 Main application container
+      containers:
+        - name: nodejs-app
+          image: abdelrahmangad275/kubernets-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DB_PASSWORD
+                  
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+
+          # Requists and Limits
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+              
+          volumeMounts:
+            - name: nodejs-data
+              mountPath: /usr/src/app/logs
+          
+
+      volumes:
+        - name: nodejs-data
+          persistentVolumeClaim:
+            claimName: nodejs-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-service
+  namespace: ivolve
+spec:
+  type: ClusterIP
+  selector:
+    app: nodejs-app
+  ports:
+    - port: 3000
+      targetPort: 3000
+

@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-app-to-mysql
+  namespace: ivolve
+spec:
+  podSelector:
+    matchLabels:
+      app: mysql   # Target MySQL pods
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: nodejs-app   # Allow only app pods to connect
+      ports:
+        - protocol: TCP
+          port: 3306  # MySQL default port
+
