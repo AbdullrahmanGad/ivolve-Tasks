@@ -33,8 +33,8 @@ This repo contains hands-on Tasks covering **Ansible**, and **Docker** — demon
 
 ## K8S
 
-1. **Kubernetes Cluster Setup with Kubeadm**
-2. **Task 1: Node Isolation Using Taints in Kubernetes**
-3. **Task 2: Namespace Management and Resource Quota Enforcement**
-4. **Task 3: Managing Configuration and Sensitive Data with ConfigMaps and Secrets**
-5. **Kubernetes Microservices Deployment — MySQL + Node.js App**
+[**Cluster Creation with Kubeadm**](kubernetes/README.md)
+1. [**Task 1: Node Isolation Using Taints in Kubernetes**](kubernetes/1-Working-with-Taints/README.md)
+2. [**Task 2: Namespace Management and Resource Quota Enforcement**](kubernetes/2-Res-Quota/Readme.md)
+3. [**Task 3: Managing Configuration and Sensitive Data with ConfigMaps and Secrets**](kubernetes/3-Configmap&secrets/README.md)
+4. [**Kubernetes Microservices Deployment — MySQL + Node.js App**](kubernetes/4-Nodejs+Mysql-app/README.md)
