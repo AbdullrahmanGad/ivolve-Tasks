@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-app
+  namespace: ivolve
+  labels:
+    app: jenkins-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-app
+  template:
+    metadata:
+      labels:
+        app: jenkins-app
+    spec:
+      containers:
+      - name: jenkins-app
+        image: abdelrahmangad275/jenkins-app:1
+        ports:
+        - containerPort: 8080
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-app-service
+  namespace: ivolve
+  labels:
+    app: jenkins-app
+spec:
+  type: ClusteIP
+  selector:
+    app: jenkins-app
+  ports:
+    - port: 80
+      targetPort: 8089
