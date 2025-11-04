@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Docker Hub credentials
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        DOCKERHUB_USERNAME = 'your-dockerhub-username'  // UPDATE THIS
+        DOCKERHUB_USERNAME = 'abdelrahmangad275'  // UPDATE THIS
         
         // Image 
         IMAGE_NAME = 'jenkins-app'
