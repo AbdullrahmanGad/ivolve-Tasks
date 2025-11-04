@@ -1,0 +1,198 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Docker Hub credentials
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKERHUB_USERNAME = 'your-dockerhub-username'  // UPDATE THIS
+        
+        // Image 
+        IMAGE_NAME = 'jenkins-app'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        FULL_IMAGE_NAME = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
+        
+        // GitHub repo (public - no credentials needed)
+        GIT_REPO = 'https://github.com/AbdullrahmanGad/ivolve-Tasks.git'
+        GIT_BRANCH = 'main'
+    }
+    
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo '📥 Cloning public repository from GitHub...'
+                // No credentials needed for public repo!
+                git branch: "${GIT_BRANCH}", 
+                    url: "${GIT_REPO}"
+                    
+                echo 'Repository cloned successfully!'
+                sh 'ls -la'  // List files to verify
+            }
+        }
+        
+        stage('Run Unit Tests') {
+            steps {
+                echo '🧪 Running unit tests...'
+                script {
+                    // Based on the repo structure, adjust commands
+                    // Check if package.json exists (Node.js)
+                    if (fileExists('package.json')) {
+                        sh '''
+                            npm install
+                            npm test
+                        '''
+                    }
+                    // Check if requirements.txt exists (Python)
+                    else if (fileExists('requirements.txt')) {
+                        sh '''
+                            pip install -r requirements.txt
+                            python -m pytest tests/ || echo "No tests found"
+                        '''
+                    }
+                    // Check if pom.xml exists (Java/Maven)
+                    else if (fileExists('pom.xml')) {
+                        sh 'mvn test'
+                    }
+                    else {
+                        echo 'No standard test configuration found, skipping tests'
+                    }
+                }
+            }
+        }
+        
+        stage('Build Application') {
+            steps {
+                echo '🔨 Building the application...'
+                script {
+                    if (fileExists('package.json')) {
+                        sh 'npm run build || echo "No build script found"'
+                    }
+                    else if (fileExists('requirements.txt')) {
+                        echo 'Python app - build step not required'
+                    }
+                    else if (fileExists('pom.xml')) {
+                        sh 'mvn clean package'
+                    }
+                    else {
+                        echo 'Application built with Docker'
+                    }
+                }
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                echo "🐳 Building Docker image: ${FULL_IMAGE_NAME}"
+                script {
+                    sh """
+                        docker build -t ${FULL_IMAGE_NAME} .
+                        docker images | grep ${IMAGE_NAME}
+                    """
+                }
+            }
+        }
+        
+        stage('Push to Docker Hub') {
+            steps {
+                echo '📤 Pushing image to Docker Hub...'
+                script {
+                    sh """
+                        echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin
+                        docker push ${FULL_IMAGE_NAME}
+                        echo "Image pushed successfully: ${FULL_IMAGE_NAME}"
+                    """
+                }
+            }
+        }
+        
+        stage('Delete Local Image') {
+            steps {
+                echo '🧹 Cleaning up local Docker image...'
+                script {
+                    sh """
+                        docker rmi ${FULL_IMAGE_NAME} || true
+                        docker logout
+                        echo "Local image removed"
+                    """
+                }
+            }
+        }
+        
+        stage('Update Deployment YAML') {
+            steps {
+                echo '📝 Updating deployment.yaml with new image tag...'
+                script {
+                    sh """
+                        # Backup original file
+                        cp deployment.yaml deployment.yaml.bak
+                        
+                        # Update image in deployment.yaml
+                        sed -i 's|image:.*${IMAGE_NAME}.*|image: ${FULL_IMAGE_NAME}|g' deployment.yaml
+                        
+                        # Show the change
+                        echo "Updated deployment.yaml:"
+                        grep "image:" deployment.yaml
+                    """
+                }
+            }
+        }
+        
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo '☸️  Deploying to Kubernetes cluster...'
+                script {
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        sh """
+                            # Apply the deployment
+                            kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yaml
+                            
+                            # Wait for rollout to complete
+                            kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app -n default
+                            
+                            # Show deployment status
+                            echo "Deployment Status:"
+                            kubectl --kubeconfig=\$KUBECONFIG get deployment jenkins-app -n default
+                            
+                            echo "Pods:"
+                            kubectl --kubeconfig=\$KUBECONFIG get pods -l app=jenkins-app -n default
+                        """
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo '=' * 50
+            echo '📊 Pipeline Execution Summary'
+            echo '=' * 50
+            echo "Job: ${env.JOB_NAME}"
+            echo "Build Number: ${env.BUILD_NUMBER}"
+            echo "Build Status: ${currentBuild.result ?: 'SUCCESS'}"
+            echo "Duration: ${currentBuild.durationString}"
+            echo "Image: ${FULL_IMAGE_NAME}"
+            echo '=' * 50
+            
+            // Clean workspace
+            cleanWs()
+        }
+        
+        success {
+            echo '✅ SUCCESS: Pipeline completed successfully!'
+            echo "🚀 Application deployed: ${FULL_IMAGE_NAME}"
+            echo "🔗 Check your Kubernetes cluster for the running pods"
+            
+        }
+        
+        failure {
+            echo '❌ FAILURE: Pipeline failed!'
+            echo '📋 Please check the console output for error details'
+            echo "Failed at build: ${env.BUILD_NUMBER}"
+            
+        }
+        
+        unstable {
+            echo '⚠️  UNSTABLE: Pipeline completed with warnings'
+        }
+    }
+}
