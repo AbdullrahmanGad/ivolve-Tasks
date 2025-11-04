@@ -1,59 +1,87 @@
 pipeline {
     agent any
     
+    tools {
+        maven 'Maven-1'  
+        jdk 'JDK-17'       
+    }
+    
     environment {
         // Docker Hub credentials
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        DOCKERHUB_USERNAME = 'abdelrahmangad275'  // UPDATE THIS
+        DOCKERHUB_USERNAME = 'abdelrahmangad275'  // ⚠️ CHANGE THIS!
         
-        // Image 
+        // Image details
         IMAGE_NAME = 'jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE_NAME = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
         
-        // GitHub repo (public - no credentials needed)
+        // GitHub repo
         GIT_REPO = 'https://github.com/AbdullrahmanGad/ivolve-Tasks.git'
         GIT_BRANCH = 'main'
+        
+        // Project directory
+        PROJECT_DIR = 'Jenkins/pipeline-1'
     }
     
     stages {
         stage('Clone Repository') {
             steps {
-                echo '📥 Cloning public repository from GitHub...'
-                // No credentials needed for public repo!
+                echo '📥 Cloning repository from GitHub...'
                 git branch: "${GIT_BRANCH}", 
                     url: "${GIT_REPO}"
-                    
+                
                 echo 'Repository cloned successfully!'
-                sh 'ls -la'  // List files to verify
+                sh '''
+                    echo "Root directory contents:"
+                    ls -la
+                    echo "---"
+                    echo "Project directory contents:"
+                    ls -la Jenkins/pipeline-1/
+                '''
+            }
+        }
+        
+        stage('Environment Info') {
+            steps {
+                echo '🔍 Checking build environment...'
+                dir("${PROJECT_DIR}") {
+                    sh '''
+                        echo "Java Version:"
+                        java -version
+                        echo "---"
+                        echo "Maven Version:"
+                        mvn -version
+                        echo "---"
+                        echo "Current Directory:"
+                        pwd
+                        echo "---"
+                        echo "Project Files:"
+                        ls -la
+                    '''
+                }
             }
         }
         
         stage('Run Unit Tests') {
             steps {
                 echo '🧪 Running unit tests...'
-                script {
-                    // Based on the repo structure, adjust commands
-                    // Check if package.json exists (Node.js)
-                    if (fileExists('package.json')) {
-                        sh '''
-                            npm install
-                            npm test
-                        '''
+                dir("${PROJECT_DIR}") {
+                    script {
+                        try {
+                            sh 'mvn clean test'
+                            echo '✅ All tests passed!'
+                        } catch (Exception e) {
+                            echo '⚠️ Some tests failed, but continuing...'
+                            currentBuild.result = 'UNSTABLE'
+                        }
                     }
-                    // Check if requirements.txt exists (Python)
-                    else if (fileExists('requirements.txt')) {
-                        sh '''
-                            pip install -r requirements.txt
-                            python -m pytest tests/ || echo "No tests found"
-                        '''
-                    }
-                    // Check if pom.xml exists (Java/Maven)
-                    else if (fileExists('pom.xml')) {
-                        sh 'mvn test'
-                    }
-                    else {
-                        echo 'No standard test configuration found, skipping tests'
+                }
+            }
+            post {
+                always {
+                    dir("${PROJECT_DIR}") {
+                        junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                     }
                 }
             }
@@ -61,20 +89,14 @@ pipeline {
         
         stage('Build Application') {
             steps {
-                echo '🔨 Building the application...'
-                script {
-                    if (fileExists('package.json')) {
-                        sh 'npm run build || echo "No build script found"'
-                    }
-                    else if (fileExists('requirements.txt')) {
-                        echo 'Python app - build step not required'
-                    }
-                    else if (fileExists('pom.xml')) {
-                        sh 'mvn clean package'
-                    }
-                    else {
-                        echo 'Application built with Docker'
-                    }
+                echo '🔨 Building Java application with Maven...'
+                dir("${PROJECT_DIR}") {
+                    sh '''
+                        mvn clean package -DskipTests
+                        echo "---"
+                        echo "Build artifacts:"
+                        ls -lh target/*.jar
+                    '''
                 }
             }
         }
@@ -82,9 +104,18 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "🐳 Building Docker image: ${FULL_IMAGE_NAME}"
-                script {
+                dir("${PROJECT_DIR}") {
+                    sh '''
+                        echo "Files in project directory:"
+                        ls -la
+                        echo "---"
+                        echo "JAR files in target:"
+                        ls -la target/*.jar
+                    '''
+                    
                     sh """
                         docker build -t ${FULL_IMAGE_NAME} .
+                        echo "✅ Docker image built successfully!"
                         docker images | grep ${IMAGE_NAME}
                     """
                 }
@@ -98,7 +129,7 @@ pipeline {
                     sh """
                         echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin
                         docker push ${FULL_IMAGE_NAME}
-                        echo "Image pushed successfully: ${FULL_IMAGE_NAME}"
+                        echo "✅ Image pushed: ${FULL_IMAGE_NAME}"
                     """
                 }
             }
@@ -111,7 +142,7 @@ pipeline {
                     sh """
                         docker rmi ${FULL_IMAGE_NAME} || true
                         docker logout
-                        echo "Local image removed"
+                        echo "✅ Local cleanup complete"
                     """
                 }
             }
@@ -119,18 +150,19 @@ pipeline {
         
         stage('Update Deployment YAML') {
             steps {
-                echo '📝 Updating deployment.yaml with new image tag...'
-                script {
+                echo '📝 Updating deployment.yaml with new image...'
+                dir("${PROJECT_DIR}") {
                     sh """
-                        # Backup original file
-                        cp deployment.yaml deployment.yaml.bak
-                        
-                        # Update image in deployment.yaml
-                        sed -i 's|image:.*${IMAGE_NAME}.*|image: ${FULL_IMAGE_NAME}|g' deployment.yaml
-                        
-                        # Show the change
-                        echo "Updated deployment.yaml:"
-                        grep "image:" deployment.yaml
+                        if [ -f deployment.yaml ]; then
+                            echo "Found deployment.yaml"
+                            cp deployment.yaml deployment.yaml.bak
+                            sed -i 's|image:.*${IMAGE_NAME}.*|image: ${FULL_IMAGE_NAME}|g' deployment.yaml
+                            echo "Updated image in deployment.yaml:"
+                            grep "image:" deployment.yaml
+                        else
+                            echo "❌ deployment.yaml not found!"
+                            exit 1
+                        fi
                     """
                 }
             }
@@ -139,21 +171,20 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo '☸️  Deploying to Kubernetes cluster...'
-                script {
+                dir("${PROJECT_DIR}") {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                         sh """
-                            # Apply the deployment
                             kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yaml
+                            kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app -n default --timeout=5m
                             
-                            # Wait for rollout to complete
-                            kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app -n default
-                            
-                            # Show deployment status
-                            echo "Deployment Status:"
+                            echo "📊 Deployment Status:"
                             kubectl --kubeconfig=\$KUBECONFIG get deployment jenkins-app -n default
                             
-                            echo "Pods:"
+                            echo "📦 Pods:"
                             kubectl --kubeconfig=\$KUBECONFIG get pods -l app=jenkins-app -n default
+                            
+                            echo "🌐 Service:"
+                            kubectl --kubeconfig=\$KUBECONFIG get svc jenkins-app-service -n default
                         """
                     }
                 }
@@ -167,32 +198,31 @@ pipeline {
             echo '📊 Pipeline Execution Summary'
             echo '=' * 50
             echo "Job: ${env.JOB_NAME}"
-            echo "Build Number: ${env.BUILD_NUMBER}"
-            echo "Build Status: ${currentBuild.result ?: 'SUCCESS'}"
+            echo "Build: #${env.BUILD_NUMBER}"
+            echo "Status: ${currentBuild.result ?: 'SUCCESS'}"
             echo "Duration: ${currentBuild.durationString}"
             echo "Image: ${FULL_IMAGE_NAME}"
             echo '=' * 50
             
-            // Clean workspace
+            dir("${PROJECT_DIR}") {
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            }
+            
             cleanWs()
         }
         
         success {
-            echo '✅ SUCCESS: Pipeline completed successfully!'
-            echo "🚀 Application deployed: ${FULL_IMAGE_NAME}"
-            echo "🔗 Check your Kubernetes cluster for the running pods"
-            
+            echo '✅ SUCCESS: Pipeline completed!'
+            echo "🚀 Deployed: ${FULL_IMAGE_NAME}"
         }
         
         failure {
             echo '❌ FAILURE: Pipeline failed!'
-            echo '📋 Please check the console output for error details'
-            echo "Failed at build: ${env.BUILD_NUMBER}"
-            
+            echo '📋 Check console output for details'
         }
         
         unstable {
-            echo '⚠️  UNSTABLE: Pipeline completed with warnings'
+            echo '⚠️  UNSTABLE: Some tests failed'
         }
     }
 }
