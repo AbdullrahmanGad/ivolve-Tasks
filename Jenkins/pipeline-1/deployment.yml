@@ -30,7 +30,7 @@ metadata:
   labels:
     app: jenkins-app
 spec:
-  type: ClusteIP
+  type: ClusterIP
   selector:
     app: jenkins-app
   ports:
