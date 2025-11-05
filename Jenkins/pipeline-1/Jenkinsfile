@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven 'Mvn3.9'
+        jdk 'JDK-17'
     }
 
     environment {
@@ -53,7 +54,7 @@ pipeline {
             steps {
                 dir('Jenkins/pipeline-1') {
                     sh """
-                        sed -i 's|IMAGE_TAG|v${BUILD_NUMBER}|g' deployment.yaml
+                        sed -i 's|IMAGE_TAG|v${BUILD_NUMBER}|g' deployment.yml
                         cat deployment.yaml
                     """
                 }
@@ -64,7 +65,7 @@ pipeline {
             steps {
                 dir('Jenkins/pipeline-1') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yaml"
+                        sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yml"
                         sh "kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app"
                     }
                 }
