@@ -19,6 +19,9 @@ spec:
           operator: "Equal"
           value: "worker"
           effect: "NoSchedule"
+      imagePullSecrets:
+        - name: dockerhub-secret
+
       containers:
       - name: jenkins-app
         image: abdelrahmangad275/jenkins-app:IMAGE_TAG
