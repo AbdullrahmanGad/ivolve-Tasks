@@ -1,9 +1,8 @@
 pipeline {
     agent any
-    
+
     tools {
         maven 'Mvn3.9'
- 	jdk 'JDK-17'
     }
 
     environment {
@@ -50,16 +49,13 @@ pipeline {
             }
         }
 
-        stage('Delete image locally') {
-            steps {
-                sh "docker rmi ${IMAGE_NAME}:v${BUILD_NUMBER}"
-            }
-        }
-
-        stage('Update Deployment') {
+        stage('Update deployment YAML tag') {
             steps {
                 dir('Jenkins/pipeline-1') {
-                    sh "sed -i 's|image:.*|image: ${IMAGE_NAME}:v${BUILD_NUMBER}|' deployment.yml"
+                    sh """
+                        sed -i 's|IMAGE_TAG|v${BUILD_NUMBER}|g' deployment.yaml
+                        cat deployment.yaml
+                    """
                 }
             }
         }
@@ -68,10 +64,16 @@ pipeline {
             steps {
                 dir('Jenkins/pipeline-1') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yml"
+                        sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yaml"
                         sh "kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app"
                     }
                 }
+            }
+        }
+
+        stage('Cleanup local image') {
+            steps {
+                sh "docker rmi ${IMAGE_NAME}:v${BUILD_NUMBER} || true"
             }
         }
     }
@@ -83,10 +85,8 @@ pipeline {
         }
         failure {
             echo "❌ Pipeline failed!"
-            echo "📋 Check the console output for errors"
         }
         always {
-            echo "🔄 Pipeline finished!"
             cleanWs()
         }
     }

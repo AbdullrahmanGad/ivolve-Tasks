@@ -21,7 +21,7 @@ spec:
           effect: "NoSchedule"
       containers:
       - name: jenkins-app
-        image: abdelrahmangad275/jenkins-app:1
+        image: abdelrahmangad275/jenkins-app:IMAGE_TAG
         ports:
         - containerPort: 8080
         
