@@ -55,7 +55,7 @@ pipeline {
                 dir('Jenkins/pipeline-1') {
                     sh """
                         sed -i 's|IMAGE_TAG|v${BUILD_NUMBER}|g' deployment.yml
-                        cat deployment.yaml
+                        cat deployment.yml
                     """
                 }
             }
