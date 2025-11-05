@@ -59,7 +59,7 @@ pipeline {
         stage('Update Deployment') {
             steps {
                 dir('Jenkins/pipeline-1') {
-                    sh "sed -i 's|image:.*|image: ${IMAGE_NAME}:v${BUILD_NUMBER}|' deployment.yaml"
+                    sh "sed -i 's|image:.*|image: ${IMAGE_NAME}:v${BUILD_NUMBER}|' deployment.yml"
                 }
             }
         }
@@ -68,7 +68,7 @@ pipeline {
             steps {
                 dir('Jenkins/pipeline-1') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yaml"
+                        sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yml"
                         sh "kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app"
                     }
                 }
