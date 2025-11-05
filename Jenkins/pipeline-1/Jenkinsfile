@@ -1,22 +1,22 @@
 pipeline {
     agent any
     
-    environment {
-        IMAGE_NAME = "abdelrahmangad275/jenkins-app"  
-    }
-    
     tools {
-        maven 'Mvn3.9'  
-        jdk 'JDK-17'       
+        maven 'Mvn3.9'
+        jdk 'JDK-17'
     }
-    
+
+    environment {
+        IMAGE_NAME = "abdelrahmangad275/jenkins-app"
+    }
+
     stages {
         stage('Cloning the repo') {
             steps {
                 git url: 'https://github.com/AbdullrahmanGad/ivolve-Tasks.git', branch: 'main'
             }
         }
-        
+
         stage('Run Unit Test') {
             steps {
                 dir('Jenkins/pipeline-1') {
@@ -24,7 +24,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build the app') {
             steps {
                 dir('Jenkins/pipeline-1') {
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Docker image') {
             steps {
                 dir('Jenkins/pipeline-1') {
@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Push Docker image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
@@ -49,13 +49,13 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Delete image locally') {
             steps {
                 sh "docker rmi ${IMAGE_NAME}:v${BUILD_NUMBER}"
             }
         }
-        
+
         stage('Update Deployment') {
             steps {
                 dir('Jenkins/pipeline-1') {
@@ -63,20 +63,20 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy to Kubernetes') {
             steps {
                 dir('Jenkins/pipeline-1') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                         sh "kubectl --kubeconfig=\$KUBECONFIG apply -f deployment.yaml"
                         sh "kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/jenkins-app"
-                    }   
+                    }
                 }
             }
         }
-    }  
-    
-    post {  
+    }
+
+    post {
         success {
             echo "✅ Pipeline succeeded!"
             echo "🚀 Deployed image: ${IMAGE_NAME}:v${BUILD_NUMBER}"
@@ -87,7 +87,8 @@ pipeline {
         }
         always {
             echo "🔄 Pipeline finished!"
-            cleanWs()  // Clean workspace after build
+            cleanWs()
         }
     }
 }
+
